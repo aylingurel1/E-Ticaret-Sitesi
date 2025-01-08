@@ -12,6 +12,8 @@ namespace Final.DataAccess.Data
                 
         }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
@@ -26,6 +28,12 @@ namespace Final.DataAccess.Data
                 new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
+
+            modelBuilder.Entity<Company>().HasData(
+                new Company { Id = 1, Name = "Tech Solutions", StreetAddress = "123 Tech Street", City = "Tech City", State = "TS", PostalCode = "12345", PhoneNumber = "123-456-7890" },
+                new Company { Id = 2, Name = "Innovative Creations", StreetAddress = "456 Innovation Way", City = "Innovate City", State = "IC", PostalCode = "67890", PhoneNumber = "987-654-3210" },
+                new Company { Id = 3, Name = "Future Enterprises", StreetAddress = "789 Future Blvd", City = "Future City", State = "FC", PostalCode = "11223", PhoneNumber = "456-789-0123" }
+            );
 
             modelBuilder.Entity<Product>().HasData(
                 new Product
@@ -113,6 +121,8 @@ namespace Final.DataAccess.Data
                     ImageUrl = ""
                 }
                 );
+
+            
         }
 
     }

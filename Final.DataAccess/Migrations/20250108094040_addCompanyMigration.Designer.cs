@@ -4,6 +4,7 @@ using Final.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250108094040_addCompanyMigration")]
+    partial class addCompanyMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,38 +96,6 @@ namespace Final.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Tech City",
-                            Name = "Tech Solutions",
-                            PhoneNumber = "123-456-7890",
-                            PostalCode = "12345",
-                            State = "TS",
-                            StreetAddress = "123 Tech Street"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Innovate City",
-                            Name = "Innovative Creations",
-                            PhoneNumber = "987-654-3210",
-                            PostalCode = "67890",
-                            State = "IC",
-                            StreetAddress = "456 Innovation Way"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "Future City",
-                            Name = "Future Enterprises",
-                            PhoneNumber = "456-789-0123",
-                            PostalCode = "11223",
-                            State = "FC",
-                            StreetAddress = "789 Future Blvd"
-                        });
                 });
 
             modelBuilder.Entity("Final.Models.Product", b =>
@@ -261,31 +232,6 @@ namespace Final.DataAccess.Migrations
                             Price50 = 22.0,
                             Title = "Leaves and Wonders"
                         });
-                });
-
-            modelBuilder.Entity("Final.Models.ShoppingCart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -527,17 +473,6 @@ namespace Final.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Final.Models.ShoppingCart", b =>
-                {
-                    b.HasOne("Final.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
